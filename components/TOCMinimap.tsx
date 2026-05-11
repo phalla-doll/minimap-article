@@ -53,10 +53,8 @@ export function TOCMinimap({ items }: TOCMinimapProps) {
         width: isHovered ? 210 : 48,
       }}
       transition={{ 
-        type: "spring", 
-        stiffness: 300, 
-        damping: 30,
-        mass: 1
+        duration: 0.4,
+        ease: [0.16, 1, 0.3, 1]
       }}
     >
       <div 
@@ -87,8 +85,8 @@ export function TOCMinimap({ items }: TOCMinimapProps) {
             >
               <motion.div 
                 className="flex items-center w-full relative z-10 origin-left"
-                whileHover={{ x: 6 }}
-                transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                whileHover={{ x: 2 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
               >
                 {/* The Dot / Active Indicator */}
                 <motion.div
@@ -98,15 +96,12 @@ export function TOCMinimap({ items }: TOCMinimapProps) {
                   )}
                   initial={false}
                   animate={{
-                    width: isHovered ? (isActive ? 18 : 8) : "100%",
-                    height: isHovered ? (isActive ? 4 : 2) : 2,
+                    width: isHovered ? (isActive ? 12 : 6) : "100%",
+                    height: isHovered ? (isActive ? 2 : 2) : 2,
                   }}
-                  whileHover={{ scale: 1.2 }}
                   transition={{ 
-                    type: "spring", 
-                    stiffness: 500, 
-                    damping: isActive ? 12 : 25, 
-                    mass: 0.8 
+                    duration: 0.3,
+                    ease: "easeOut"
                   }}
                 />
 
@@ -114,13 +109,13 @@ export function TOCMinimap({ items }: TOCMinimapProps) {
                 <AnimatePresence>
                   {isHovered && (
                     <motion.div
-                      initial={{ opacity: 0, x: 12, filter: "blur(4px)" }}
-                      animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-                      exit={{ opacity: 0, x: 8, filter: "blur(4px)", transition: { duration: 0.2 } }}
+                      initial={{ opacity: 0, x: 4 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: 4, transition: { duration: 0.15 } }}
                       transition={{ 
-                        duration: 0.5,
-                        ease: [0.16, 1, 0.3, 1],
-                        delay: index * 0.03,
+                        duration: 0.3,
+                        ease: "easeOut",
+                        delay: index * 0.02,
                       }}
                       className="ml-3 flex items-center justify-between w-full"
                     >
