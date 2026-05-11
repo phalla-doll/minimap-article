@@ -59,12 +59,17 @@ export function TOCMinimap({ items }: TOCMinimapProps) {
         mass: 1
       }}
     >
-      <div className="flex flex-col gap-2 w-full">
+      <div 
+        className={cn(
+          "flex flex-col w-full transition-all duration-500",
+          isHovered ? "gap-2" : "gap-[2px]"
+        )}
+      >
         {items.map((item, index) => {
           const isActive = activeId === item.id;
 
           return (
-            <a
+            <motion.a
               key={item.id}
               href={`#${item.id}`}
               onClick={(e) => {
@@ -75,8 +80,10 @@ export function TOCMinimap({ items }: TOCMinimapProps) {
                   window.scrollTo({ top: y, behavior: 'smooth' });
                 }
               }}
-              className="relative group flex items-center h-8 w-full text-left outline-none cursor-pointer"
+              className="relative group flex items-center w-full text-left outline-none cursor-pointer"
               aria-label={`Scroll to ${item.title}`}
+              animate={{ height: isHovered ? 32 : 12 }}
+              transition={{ type: "spring", stiffness: 400, damping: 30 }}
             >
               <motion.div 
                 className="flex items-center w-full relative z-10 origin-left"
@@ -132,7 +139,7 @@ export function TOCMinimap({ items }: TOCMinimapProps) {
                   )}
                 </AnimatePresence>
               </motion.div>
-            </a>
+            </motion.a>
           );
         })}
       </div>
