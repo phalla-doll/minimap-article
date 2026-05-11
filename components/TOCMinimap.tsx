@@ -50,7 +50,7 @@ export function TOCMinimap({ items }: TOCMinimapProps) {
       onMouseLeave={() => setIsHovered(false)}
       initial={false}
       animate={{
-        width: isHovered ? 260 : 48,
+        width: isHovered ? 210 : 48,
       }}
       transition={{ 
         type: "spring", 
@@ -122,7 +122,7 @@ export function TOCMinimap({ items }: TOCMinimapProps) {
                         ease: [0.16, 1, 0.3, 1],
                         delay: index * 0.03,
                       }}
-                      className="ml-4 flex items-center justify-between w-full"
+                      className="ml-3 flex items-center justify-between w-full"
                     >
                       <span
                         className={cn(
