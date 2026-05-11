@@ -1,0 +1,132 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { cn } from '@/lib/utils';
+import { ChevronRight } from 'lucide-react';
+
+interface TOCItem {
+  id: string;
+  title: string;
+}
+
+interface TOCMinimapProps {
+  items: TOCItem[];
+}
+
+export function TOCMinimap({ items }: TOCMinimapProps) {
+  const [activeId, setActiveId] = useState<string>('');
+  const [isHovered, setIsHovered] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveId(entry.target.id);
+          }
+        });
+      },
+      {
+        rootMargin: '-20% 0px -80% 0px', // Trigger point near the top of viewport
+      }
+    );
+
+    items.forEach((item) => {
+      const el = document.getElementById(item.id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, [items]);
+
+  return (
+    <motion.nav
+      className={cn(
+        "fixed right-6 top-1/2 -translate-y-1/2 z-50 flex flex-col py-6 px-4 bg-transparent",
+        "overflow-hidden"
+      )}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      initial={false}
+      animate={{
+        width: isHovered ? 260 : 48,
+      }}
+      transition={{ 
+        type: "spring", 
+        stiffness: 300, 
+        damping: 30,
+        mass: 1
+      }}
+    >
+      <div className="flex flex-col gap-2 w-full">
+        {items.map((item, index) => {
+          const isActive = activeId === item.id;
+
+          return (
+            <button
+              key={item.id}
+              onClick={() => {
+                const el = document.getElementById(item.id);
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="relative group flex items-center h-6 w-full text-left outline-none"
+              aria-label={`Scroll to ${item.title}`}
+            >
+              <motion.div 
+                className="flex items-center w-full relative z-10 origin-left"
+                whileHover={{ x: 4 }}
+                transition={{ type: "spring", stiffness: 400, damping: 30 }}
+              >
+                {/* The Dot / Active Indicator */}
+                <motion.div
+                  className={cn(
+                    "rounded-full transition-colors duration-300",
+                    isActive ? "bg-black" : "bg-black/10 group-hover:bg-black/30"
+                  )}
+                  initial={false}
+                  animate={{
+                    width: isHovered ? (isActive ? 16 : 8) : "100%",
+                    height: isHovered ? (isActive ? 2 : 2) : 2,
+                  }}
+                  transition={{ type: "spring", stiffness: 450, damping: 35, mass: 0.8 }}
+                />
+
+                {/* The Label */}
+                <AnimatePresence>
+                  {isHovered && (
+                    <motion.div
+                      initial={{ opacity: 0, x: 12, filter: "blur(2px)" }}
+                      animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                      exit={{ opacity: 0, x: 8, filter: "blur(2px)" }}
+                      transition={{ 
+                        type: "spring",
+                        stiffness: 350,
+                        damping: 30,
+                        mass: 0.8,
+                        delay: isHovered ? index * 0.03 : 0,
+                      }}
+                      className="ml-4 flex items-center justify-between w-full"
+                    >
+                      <span
+                        className={cn(
+                          "whitespace-nowrap text-xs font-medium transition-colors duration-200",
+                          isActive ? "text-black" : "text-black/50 group-hover:text-black/80"
+                        )}
+                      >
+                        {item.title}
+                      </span>
+                      {isActive && (
+                        <ChevronRight className="w-4 h-4 text-gray-300" />
+                      )}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            </button>
+          );
+        })}
+      </div>
+    </motion.nav>
+  );
+}
