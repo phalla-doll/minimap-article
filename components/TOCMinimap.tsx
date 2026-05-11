@@ -64,13 +64,18 @@ export function TOCMinimap({ items }: TOCMinimapProps) {
           const isActive = activeId === item.id;
 
           return (
-            <button
+            <a
               key={item.id}
-              onClick={() => {
+              href={`#${item.id}`}
+              onClick={(e) => {
+                e.preventDefault();
                 const el = document.getElementById(item.id);
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
+                if (el) {
+                  const y = el.getBoundingClientRect().top + window.scrollY - 100;
+                  window.scrollTo({ top: y, behavior: 'smooth' });
+                }
               }}
-              className="relative group flex items-center h-6 w-full text-left outline-none"
+              className="relative group flex items-center h-8 w-full text-left outline-none cursor-pointer"
               aria-label={`Scroll to ${item.title}`}
             >
               <motion.div 
@@ -123,7 +128,7 @@ export function TOCMinimap({ items }: TOCMinimapProps) {
                   )}
                 </AnimatePresence>
               </motion.div>
-            </button>
+            </a>
           );
         })}
       </div>

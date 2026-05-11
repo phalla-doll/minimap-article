@@ -6,3 +6,7 @@
   --font-serif: var(--font-serif);
   --font-mono: var(--font-mono);
 }
+
+html {
+  scroll-behavior: smooth;
+}
