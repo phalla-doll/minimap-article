@@ -80,36 +80,40 @@ export function TOCMinimap({ items }: TOCMinimapProps) {
             >
               <motion.div 
                 className="flex items-center w-full relative z-10 origin-left"
-                whileHover={{ x: 4 }}
-                transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                whileHover={{ x: 6 }}
+                transition={{ type: "spring", stiffness: 400, damping: 20 }}
               >
                 {/* The Dot / Active Indicator */}
                 <motion.div
                   className={cn(
-                    "rounded-full transition-colors duration-300",
+                    "rounded-full transition-colors duration-300 origin-left",
                     isActive ? "bg-black" : "bg-black/10 group-hover:bg-black/30"
                   )}
                   initial={false}
                   animate={{
-                    width: isHovered ? (isActive ? 16 : 8) : "100%",
-                    height: isHovered ? (isActive ? 2 : 2) : 2,
+                    width: isHovered ? (isActive ? 18 : 8) : "100%",
+                    height: isHovered ? (isActive ? 4 : 2) : 2,
                   }}
-                  transition={{ type: "spring", stiffness: 450, damping: 35, mass: 0.8 }}
+                  whileHover={{ scale: 1.2 }}
+                  transition={{ 
+                    type: "spring", 
+                    stiffness: 500, 
+                    damping: isActive ? 12 : 25, 
+                    mass: 0.8 
+                  }}
                 />
 
                 {/* The Label */}
                 <AnimatePresence>
                   {isHovered && (
                     <motion.div
-                      initial={{ opacity: 0, x: 12, filter: "blur(2px)" }}
+                      initial={{ opacity: 0, x: 12, filter: "blur(4px)" }}
                       animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-                      exit={{ opacity: 0, x: 8, filter: "blur(2px)" }}
+                      exit={{ opacity: 0, x: 8, filter: "blur(4px)", transition: { duration: 0.2 } }}
                       transition={{ 
-                        type: "spring",
-                        stiffness: 350,
-                        damping: 30,
-                        mass: 0.8,
-                        delay: isHovered ? index * 0.03 : 0,
+                        duration: 0.5,
+                        ease: [0.16, 1, 0.3, 1],
+                        delay: index * 0.03,
                       }}
                       className="ml-4 flex items-center justify-between w-full"
                     >
