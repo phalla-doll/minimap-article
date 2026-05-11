@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { motion } from 'motion/react';
 import { TOCMinimap } from '@/components/TOCMinimap';
+import { ThemeToggle } from '@/components/ThemeToggle';
 
 const SECTIONS = [
   { id: 'introduction', title: 'Introduction' },
@@ -16,7 +17,12 @@ const SECTIONS = [
 
 export default function ArticlePage() {
   return (
-    <div className="min-h-screen bg-[#FDFCFB] text-[#1A1A1A] font-sans selection:bg-black selection:text-white pb-12">
+    <div className="min-h-screen bg-[#FDFCFB] dark:bg-[#0a0a0a] text-[#1A1A1A] dark:text-[#EAEAEA] font-sans selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black pb-12 transition-colors duration-300">
+      {/* Theme Toggle Fixed Top Right */}
+      <div className="fixed top-6 right-6 z-50">
+        <ThemeToggle />
+      </div>
+
       {/* TOC Minimap Fixed Component */}
       <TOCMinimap items={SECTIONS} />
 
@@ -28,19 +34,19 @@ export default function ArticlePage() {
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="flex items-center gap-2 mb-6">
-            <span className="px-2 py-0.5 bg-black text-white text-[10px] font-bold uppercase tracking-wider">Design</span>
-            <span className="text-xs text-black/40 font-mono">12 Min Read</span>
+            <span className="px-2 py-0.5 bg-black dark:bg-white text-white dark:text-black text-[10px] font-bold uppercase tracking-wider transition-colors duration-300">Design</span>
+            <span className="text-xs text-black/40 dark:text-white/40 font-mono transition-colors duration-300">12 Min Read</span>
           </div>
           <h1 className="text-5xl font-serif leading-tight tracking-tight mb-6">
             The Shape of Things: <br className="hidden md:block" />
-            <span className="italic text-black/60">Navigating UI Complexity</span>
+            <span className="italic text-black/60 dark:text-white/60 transition-colors duration-300">Navigating UI Complexity</span>
           </h1>
-          <div className="flex items-center gap-4 text-sm border-b border-black/5 pb-8 mb-10">
+          <div className="flex items-center gap-4 text-sm border-b border-black/5 dark:border-white/5 pb-8 mb-10 transition-colors duration-300">
             <span className="font-semibold">Engineering</span>
-            <span className="text-black/30">/</span>
-            <span className="text-black/50">Nov 14, 2023</span>
+            <span className="text-black/30 dark:text-white/30 transition-colors duration-300">/</span>
+            <span className="text-black/50 dark:text-white/50 transition-colors duration-300">Nov 14, 2023</span>
           </div>
-          <p className="text-xl text-black/60 font-serif leading-relaxed max-w-2xl">
+          <p className="text-xl text-black/60 dark:text-white/60 font-serif leading-relaxed max-w-2xl transition-colors duration-300">
             As applications grow more complex, the lines between spatial design, 
             information architecture, and temporal interactions begin to blur.
           </p>
@@ -54,7 +60,7 @@ export default function ArticlePage() {
         transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
         className="w-full max-w-3xl mx-auto px-6 mb-24"
       >
-        <div className="relative aspect-[21/9] rounded-sm overflow-hidden border border-black/5">
+        <div className="relative aspect-[21/9] rounded-sm overflow-hidden border border-black/5 dark:border-white/5 transition-colors duration-300">
           <Image
             src="https://picsum.photos/seed/gradient/1920/1080"
             alt="Abstract gradients representing UI complexity"
@@ -67,7 +73,7 @@ export default function ArticlePage() {
       </motion.div>
 
       {/* Article Content */}
-      <article className="max-w-2xl mx-auto px-6 pb-32 text-lg leading-relaxed text-black/80 font-serif">
+      <article className="max-w-2xl mx-auto px-6 pb-32 text-lg leading-relaxed text-black/80 dark:text-white/80 font-serif transition-colors duration-300">
         
         <section id="introduction" className="scroll-mt-32 mb-20">
           <h2 className="text-3xl font-sans font-semibold tracking-tight mb-6">Introduction</h2>
@@ -90,8 +96,8 @@ export default function ArticlePage() {
             grids give order to chaos. They tell the eye where to go, and establish rhythm in an otherwise 
             blank canvas. But grids in software are not static; they breathe.
           </p>
-          <div className="p-10 bg-black/5 border-l-4 border-black my-8">
-            <span className="block text-xs font-mono uppercase text-black/40 mb-2 font-sans tracking-wider">Key Principle</span>
+          <div className="p-10 bg-black/5 dark:bg-white/5 border-l-4 border-black dark:border-white my-8 transition-colors duration-300">
+            <span className="block text-xs font-mono uppercase text-black/40 dark:text-white/40 mb-2 font-sans tracking-wider transition-colors duration-300">Key Principle</span>
             <p className="text-xl italic">
               &quot;Design is not just what it looks like and feels like. Design is how it works.&quot;
             </p>
@@ -110,13 +116,13 @@ export default function ArticlePage() {
             the silent killer of elegant user experiences.
           </p>
           <div className="grid grid-cols-2 gap-6 my-12 font-sans">
-            <div className="bg-[#F9F8F6] border border-black/5 rounded-sm p-6">
+            <div className="bg-[#F9F8F6] dark:bg-[#111111] border border-black/5 dark:border-white/5 rounded-sm p-6 transition-colors duration-300">
               <h3 className="font-semibold mb-2">Linear Flow</h3>
-              <p className="text-sm text-black/50 leading-relaxed">Predictable, step-by-step progressions. Easy to learn, but painfully slow for experts.</p>
+              <p className="text-sm text-black/50 dark:text-white/50 leading-relaxed transition-colors duration-300">Predictable, step-by-step progressions. Easy to learn, but painfully slow for experts.</p>
             </div>
-            <div className="bg-[#F9F8F6] border border-black/5 rounded-sm p-6">
+            <div className="bg-[#F9F8F6] dark:bg-[#111111] border border-black/5 dark:border-white/5 rounded-sm p-6 transition-colors duration-300">
               <h3 className="font-semibold mb-2">Spatial Flow</h3>
-              <p className="text-sm text-black/50 leading-relaxed">Dashboard-like layouts showing all capabilities simultaneously. High cognitive load.</p>
+              <p className="text-sm text-black/50 dark:text-white/50 leading-relaxed transition-colors duration-300">Dashboard-like layouts showing all capabilities simultaneously. High cognitive load.</p>
             </div>
           </div>
           <p className="mb-8">
@@ -137,7 +143,7 @@ export default function ArticlePage() {
             alt="Structural architecture"
             width={1000}
             height={600}
-            className="rounded-sm my-10 object-cover border border-black/5"
+            className="rounded-sm my-10 object-cover border border-black/5 dark:border-white/5 transition-colors duration-300"
             referrerPolicy="no-referrer"
           />
           <p className="mb-8">
@@ -155,19 +161,19 @@ export default function ArticlePage() {
             When elements disappear instantaneously, it creates a break in reality. When they slide, fade, 
             or morph, they preserve context.
           </p>
-          <div className="p-8 bg-[#F9F8F6] border border-black/5 text-[#1A1A1A] rounded-sm my-10 font-sans shadow-sm">
+          <div className="p-8 bg-[#F9F8F6] dark:bg-[#111111] border border-black/5 dark:border-white/5 text-[#1A1A1A] dark:text-[#EAEAEA] rounded-sm my-10 font-sans shadow-sm transition-colors duration-300">
             <h3 className="text-xl font-medium mb-4">Three Rules of Motion</h3>
-            <ul className="space-y-4 text-black/60">
+            <ul className="space-y-4 text-black/60 dark:text-white/60 transition-colors duration-300">
               <li className="flex items-start">
-                <span className="w-1 h-1.5 mt-2 bg-black/40 mr-4 shrink-0" />
+                <span className="w-1 h-1.5 mt-2 bg-black/40 dark:bg-white/40 mr-4 shrink-0 transition-colors duration-300" />
                 <p><strong>Purposeful:</strong> Animation should only exist to explain state change or establish spatial relations.</p>
               </li>
               <li className="flex items-start">
-                <span className="w-1.5 h-1.5 mt-2 bg-black/40 mr-4 shrink-0" />
+                <span className="w-1.5 h-1.5 mt-2 bg-black/40 dark:bg-white/40 mr-4 shrink-0 transition-colors duration-300" />
                 <p><strong>Snappy:</strong> UIs should react exactly as quickly as human thought. Ideally 200-300ms.</p>
               </li>
               <li className="flex items-start">
-                <span className="w-1.5 h-1.5 mt-2 bg-black/40 mr-4 shrink-0" />
+                <span className="w-1.5 h-1.5 mt-2 bg-black/40 dark:bg-white/40 mr-4 shrink-0 transition-colors duration-300" />
                 <p><strong>Unobtrusive:</strong> It should never force the user to wait for it before they can interact.</p>
               </li>
             </ul>
@@ -187,19 +193,19 @@ export default function ArticlePage() {
           </p>
         </section>
 
-        <section id="conclusion" className="scroll-mt-32 mb-20 pb-16 border-b border-black/5">
+        <section id="conclusion" className="scroll-mt-32 mb-20 pb-16 border-b border-black/5 dark:border-white/5 transition-colors duration-300">
           <h2 className="text-3xl font-sans font-semibold tracking-tight mb-6">Conclusion</h2>
           <p className="mb-8">
             We build tools to build the future. By maintaining extreme discipline over how we introduce 
             complexity to a screen, we ensure our users can focus entirely on the work they woke up to do. 
           </p>
-          <p className="mb-8 italic text-black/40">
+          <p className="mb-8 italic text-black/40 dark:text-white/40 transition-colors duration-300">
             End of transmission. Keep building beautiful things.
           </p>
         </section>
       </article>
       
-      <footer className="text-center pb-24 text-black/40 text-sm font-sans">
+      <footer className="text-center pb-24 text-black/40 dark:text-white/40 text-sm font-sans transition-colors duration-300">
         <p>&copy; {new Date().getFullYear()} AI Studio Engineering. All rights reserved.</p>
       </footer>
     </div>

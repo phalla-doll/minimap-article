@@ -92,7 +92,7 @@ export function TOCMinimap({ items }: TOCMinimapProps) {
                 <motion.div
                   className={cn(
                     "rounded-full transition-colors duration-300 origin-left",
-                    isActive ? "bg-black" : "bg-black/10 group-hover:bg-black/30"
+                    isActive ? "bg-black dark:bg-white" : "bg-black/10 dark:bg-white/10 group-hover:bg-black/30 dark:group-hover:bg-white/30"
                   )}
                   initial={false}
                   animate={{
@@ -122,13 +122,13 @@ export function TOCMinimap({ items }: TOCMinimapProps) {
                       <span
                         className={cn(
                           "whitespace-nowrap text-xs font-medium transition-colors duration-200",
-                          isActive ? "text-black" : "text-black/50 group-hover:text-black/80"
+                          isActive ? "text-black dark:text-white" : "text-black/50 dark:text-white/50 group-hover:text-black/80 dark:group-hover:text-white/80"
                         )}
                       >
                         {item.title}
                       </span>
                       {isActive && (
-                        <ChevronRight className="w-4 h-4 text-gray-300" />
+                        <ChevronRight className="w-4 h-4 text-gray-300 dark:text-gray-600" />
                       )}
                     </motion.div>
                   )}
